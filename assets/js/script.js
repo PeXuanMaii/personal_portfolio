@@ -58,7 +58,7 @@ overlay.addEventListener("click", testimonialsModalFunc);
 // custom select variables
 const select = document.querySelector("[data-select]");
 const selectItems = document.querySelectorAll("[data-select-item]");
-const selectValue = document.querySelector("[data-selecct-value]");
+const selectValue = document.querySelector("[data-select-custom-value]");
 const filterBtn = document.querySelectorAll("[data-filter-btn]");
 
 select.addEventListener("click", function () { elementToggleFunc(this); });
@@ -133,6 +133,26 @@ for (let i = 0; i < formInputs.length; i++) {
 
   });
 }
+
+document.getElementById("btn_submit").addEventListener('click',function (event){
+  event.preventDefault();
+  
+  sgMail.setApiKey('TTG5E2FZ2G2ECLAWGX74VHME');//key api
+
+  const msg = {
+    to: 'bxhieu03092001@gmail.com', // Địa chỉ email người nhận
+    from: 'test@gmail.com', // Địa chỉ email người gửi
+    subject: 'Message from My Profolio Web',
+    text: 'and easy to do anywhere, even with Node.js',
+    html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+  };
+
+  sgMail.send(msg)
+    .then(() => console.log('Email sent successfully'))
+    .catch(error => console.error('Error sending email:', error));
+
+  alert("Sent messae successful!!");
+});
 
 
 
