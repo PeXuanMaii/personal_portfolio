@@ -1,6 +1,29 @@
 'use strict';
 
+$(document).ready(function() {
+  $('#btn_submit').click(function(event) {
+      event.preventDefault(); // Ngăn form gửi theo cách thông thường
+      alert('ok');
+      var formData = {
+          name: $('#sender_name').val(),
+          email: $('#sender_email').val(),
+          message: $('#msender_messageessage').val()
+      };
 
+      $.ajax({
+          type: 'POST',
+          url: 'https://formspree.io/f/xldrjzqg', // Thay bằng URL Formspree của bạn
+          data: formData,
+          dataType: 'json',
+          success: function(response) {
+              $('#responseMessage').html('<p>Message sent successfully!</p>');
+          },
+          error: function(error) {
+              $('#responseMessage').html('<p>There was an error sending your message.</p>');
+          }
+      });
+  });
+});
 
 // element toggle function
 const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
@@ -166,26 +189,3 @@ function copyToClipboard(text) {
   alert('Đã sao chép số điện thoại: ' + text);
 }
 
-//zoom when click to avatar
-function zoomImage(event, element) {
-  event.stopPropagation(); // Ngăn chặn sự kiện click lan ra ngoài
-
-  // Đảm bảo chỉ có một hình ảnh zoomed tại một thời điểm
-  const allFigures = document.querySelectorAll('.avatar-box');
-  allFigures.forEach(fig => {
-    if (fig !== element) {
-      fig.classList.remove('zoomed');
-    }
-  });
-
-  // Toggle zoom cho hình ảnh hiện tại
-  element.classList.toggle('zoomed');
-}
-
-// Đóng zoom khi click ra ngoài
-document.addEventListener('click', function(event) {
-  const isClickInside = document.querySelector('.avatar-box.zoomed')?.contains(event.target);
-  if (!isClickInside) {
-    document.querySelectorAll('.avatar-box.zoomed').forEach(fig => fig.classList.remove('zoomed'));
-  }
-});
