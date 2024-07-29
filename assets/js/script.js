@@ -3,23 +3,21 @@
 $(document).ready(function() {
   $('#btn_submit').click(function(event) {
       event.preventDefault(); // Ngăn form gửi theo cách thông thường
-      alert('ok');
       var formData = {
           name: $('#sender_name').val(),
           email: $('#sender_email').val(),
-          message: $('#msender_messageessage').val()
+          message: $('#sender_message').val()
       };
-
       $.ajax({
           type: 'POST',
           url: 'https://formspree.io/f/xldrjzqg', // Thay bằng URL Formspree của bạn
           data: formData,
           dataType: 'json',
           success: function(response) {
-              $('#responseMessage').html('<p>Message sent successfully!</p>');
+              alert('Message sent successfully!');
           },
           error: function(error) {
-              $('#responseMessage').html('<p>There was an error sending your message.</p>');
+              alert('There was an error sending your message.');
           }
       });
   });
